@@ -13,12 +13,22 @@
 ## Installation
 
 ```bash
-$ npm install @trieloff/theblog-redirect-importer
+$ git clone git@github.com:trieloff/theblog-redirect-importer.git
+$ npm install
 ```
 
 ## Usage
 
-See the [API documentation](docs/API.md).
+You need:
+
+1. A Fastly Service ID pointing to a service that has an edge dictionary called `redirects`
+2. A Fastly Token
+3. An Excel workbook `urls.xlsx` with one sheet called `urls` that has two columns. The first column must be named `year` and contain the year of the post, the second column must be named `url` and have the full URL of the imported post.
+
+```bash
+$ node src/index.js <service-id> <token>
+639 items imported
+```
 
 ## Development
 
