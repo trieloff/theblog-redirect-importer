@@ -21,7 +21,10 @@
     "url": "https://github.com/trieloff/theblog-redirect-importer/issues"
   },
   "homepage": "https://github.com/trieloff/theblog-redirect-importer#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@adobe/fastly-native-promises": "^1.15.0",
+    "xlsx": "^0.15.5"
+  },
   "devDependencies": {
     "@adobe/eslint-config-helix": "1.1.0",
     "@semantic-release/changelog": "3.0.6",

@@ -9,14 +9,21 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-
+const excel = require('xlsx');
+const fastly = require('@adobe/fastly-native-promises');
+const { URL } = require('url');
 /**
  * This is the main function
  * @param {string} name name of the person to greet
  * @returns {string} a greeting
  */
-function main(name = 'world') {
-  return `Hello, ${name}.`;
+function main(args) {
+  const [,, id, token] = args;
+  const service = fastly(token, id);
+  const workbook = excel.readFile('urls.xlsx');
+  const data = excel.utils.sheet_to_json(workbook.Sheets.urls).map(({year, url}) => ({item_key: new URL(url).pathname.replace(/\/$/, ''), item_value: year, op: 'upsert'}));
+
+  service.bulkUpdateDictItems(undefined, 'redirects', ...data).then(() => console.log(data.length, 'items imported'));
 }
 
-module.exports = { main };
+main(process.argv);
